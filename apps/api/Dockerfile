@@ -1,8 +1,8 @@
 ARG NODE_VERSION=22.14.0
 
-FROM node:${NODE_VERSION} as builder
+FROM node:${NODE_VERSION}-alpine as builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -18,13 +18,13 @@ FROM node:${NODE_VERSION}-slim
 ENV NODE_ENV production
 USER node
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
 RUN npm ci --production
 
-COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /app/dist ./dist
 
 EXPOSE ${PORT}
 
