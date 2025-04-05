@@ -1,11 +1,8 @@
-export interface ErrorResponse extends MessageResponse {
+export type ErrorResponse = {
   stack?: string;
-}
-
-export interface MessageResponse {
   message: string;
-}
+};
 
-export interface UserResponse {
-  users: string[];
-}
+export type DataResponse<T> = {
+  data: T;
+};

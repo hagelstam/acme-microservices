@@ -1,11 +1,8 @@
-import winston from 'winston';
+import pino from 'pino';
 
 import { IS_PROD } from './constants';
 
-const { combine, timestamp, json } = winston.format;
-
-export const logger = winston.createLogger({
+export const logger = pino({
   level: IS_PROD ? 'info' : 'debug',
-  format: combine(timestamp(), json()),
-  transports: [new winston.transports.Console()],
+  timestamp: pino.stdTimeFunctions.isoTime,
 });
